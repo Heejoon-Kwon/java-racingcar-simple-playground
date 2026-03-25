@@ -1,6 +1,10 @@
 package view;
 
+import exception.InvalidNameInputException;
+import exception.InvalidNumberInputException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,32 +15,35 @@ public class CarRaceInput {
         scanner = new Scanner(System.in);
     }
 
-    public List<String> nameInputs(){
-        List<String> names = new ArrayList<>();
+    public List<String> getNamesInput() {
+        List<String> names = CarRaceNameInput.getNames(scanner);
 
-        System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
-        String line = scanner.nextLine();
-        Scanner lineScanner = new Scanner(line);
-        lineScanner.useDelimiter(",");
-        while (lineScanner.hasNext()) {
-            String name = lineScanner.next();
-            if (name.matches(".{1,5}")) {
-                names.add(name);
-                continue;
-            }
-            throw new RuntimeException("Invalid Name");
+        try {
+            CarRaceNameInput.validateNames(names);
+        } catch (InvalidNameInputException e) {
+            System.out.println(e.getMessage());
+            return getNamesInput();
         }
-        lineScanner.close();
 
-        return names;
+        return  names;
     }
 
-    public int numberInputs(){
-        System.out.println("시도할 회수는 몇회인가요?");
-        return scanner.nextInt();
+    public int getNumberInput() {
+        int number;
+
+        try {
+            number = CarRaceNumberInput.getNumber(scanner);
+        } catch (InvalidNumberInputException e) {
+            System.out.println(e.getMessage());
+            return getNumberInput();
+        }
+
+        return number;
     }
 
-    public void turnOffListener(){
+
+
+    public void turnOffScanner(){
         this.scanner.close();
     }
 }

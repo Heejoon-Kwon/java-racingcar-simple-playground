@@ -18,13 +18,15 @@ public class Car implements Participant {
     }
 
     @Override
-    public void moveForward() {
+    public boolean moveForward() {
         Random random = new Random();
         int randomInt = random.nextInt(10);
 
         if (randomInt >= 4) {
             distance += 1;
+            return true;
         }
+        return false;
     }
 
     @Override

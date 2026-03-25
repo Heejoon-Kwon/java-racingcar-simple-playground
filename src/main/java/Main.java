@@ -1,3 +1,6 @@
+import exception.InvalidInputException;
+import exception.InvalidNameInputException;
+import exception.InvalidNumberInputException;
 import view.CarRaceInput;
 import domain.CarRace;
 import domain.Race;
@@ -11,14 +14,11 @@ public class Main {
         CarRaceInput carRaceInput = new CarRaceInput();
         CarRaceOutput carRaceOutput = new CarRaceOutput();
 
-        List<String> participantNames = carRaceInput.nameInputs();
-        int numberOfRounds = carRaceInput.numberInputs();
+        List<String> participantNames = carRaceInput.getNamesInput();
+        int numberOfRounds = carRaceInput.getNumberInput();
+        carRaceInput.turnOffScanner();
 
-        try {
-            race.joinWithNames(participantNames);
-        } catch (RuntimeException e) {
-            System.out.println("이미 시작된 경주입니다.");
-        }
+        race.joinWithNames(participantNames);
         carRaceOutput.showRace(race, numberOfRounds);
         carRaceOutput.showWinnerNames(race);
     }

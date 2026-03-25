@@ -1,8 +1,5 @@
 package domain;
 
-import exception.IllegalRequestException;
-import view.CarRaceOutput;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,20 +7,13 @@ import java.util.List;
 public class CarRace implements Race {
     private final List<Participant> participants;
 
-    private boolean isStarted;
-
     public CarRace() {
         participants = new ArrayList<>();
-        isStarted = false;
     }
 
 
     @Override
     public void joinWithNames(List<String> names) {
-        if (isStarted) {
-            throw new IllegalRequestException("Already started!");
-        }
-
         participants.addAll(names.stream().map(Car::new).toList());
     }
 
@@ -34,7 +24,6 @@ public class CarRace implements Race {
 
     @Override
     public void startOneRound() {
-        isStarted = true;
         for (Participant participant : participants) {
             participant.moveForward();
         }
