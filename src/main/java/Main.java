@@ -1,20 +1,19 @@
-import domain.Listener;
-import domain.RaceTrack;
-import domain.Stadium;
+import domain.CarRaceInput;
+import domain.CarRace;
+import domain.Race;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Stadium stadium = new RaceTrack();
-        Listener listener = new Listener();
+        Race race = new CarRace();
+        CarRaceInput carRaceInput = new CarRaceInput();
 
-        List<String> nameList = listener.namesListener();
-        int numberOfGames = listener.numberListener();
+        List<String> names = carRaceInput.nameInputs();
+        int numberOfRounds = carRaceInput.numberInputs();
 
-        stadium.participateWithNames(nameList);
-        stadium.startGame(numberOfGames);
-        stadium.announceWinnerNames();
-
+        race.joinWithNames(names);
+        race.runRounds(numberOfRounds);
+        race.announceWinnerNames();
     }
 }

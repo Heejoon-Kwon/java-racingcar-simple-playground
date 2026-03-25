@@ -1,9 +1,9 @@
 package domain;
 
-public interface Player {
+public interface Participant {
     public String getName();
 
-    public void tryToRun();
+    public void moveForward();
 
     public int getDistance();
 

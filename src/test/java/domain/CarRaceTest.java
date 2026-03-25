@@ -6,23 +6,22 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class RaceTrackTest {
+class CarRaceTest {
     @DisplayName("우승자를 확인할 수 있다")
     @ParameterizedTest
     @MethodSource("methodSourceStringTestArguments")
     void getWinnerTest(List<String> nameList) {
         //given
-        Stadium stadium = new RaceTrack();
+        Race race = new CarRace();
 
         //when
-        stadium.participateWithNames(nameList);
-        stadium.startGame(10);
+        race.joinWithNames(nameList);
+        race.runRounds(10);
 
         //then
-        stadium.announceWinnerNames();
+        race.announceWinnerNames();
     }
 
     private static Stream<Arguments> methodSourceStringTestArguments() {

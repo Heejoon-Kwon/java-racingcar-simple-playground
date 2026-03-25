@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Listener {
+public class CarRaceInput {
     private final Scanner scanner;
 
-    public Listener(){
+    public CarRaceInput(){
         scanner = new Scanner(System.in);
     }
 
-    public List<String> namesListener(){
+    public List<String> nameInputs(){
         List<String> names = new ArrayList<>();
 
         System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).");
@@ -31,7 +31,7 @@ public class Listener {
         return names;
     }
 
-    public int numberListener(){
+    public int numberInputs(){
         System.out.println("시도할 회수는 몇회인가요?");
         return scanner.nextInt();
     }

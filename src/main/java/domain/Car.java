@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Random;
 
-public class Car implements Player {
+public class Car implements Participant {
     private final String name;
 
     private int distance;
@@ -18,7 +18,7 @@ public class Car implements Player {
     }
 
     @Override
-    public void tryToRun() {
+    public void moveForward() {
         Random random = new Random();
         int randomInt = random.nextInt(10);
 
