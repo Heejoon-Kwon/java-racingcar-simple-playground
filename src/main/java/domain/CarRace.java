@@ -1,8 +1,10 @@
 package domain;
 
+import exception.IllegalRequestException;
+import view.CarRaceOutput;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class CarRace implements Race {
@@ -10,41 +12,36 @@ public class CarRace implements Race {
 
     private boolean isStarted;
 
-    private final CarRaceOutput output;
-
     public CarRace() {
         participants = new ArrayList<>();
         isStarted = false;
-        output = new CarRaceOutput();
     }
 
 
     @Override
     public void joinWithNames(List<String> names) {
-        if (!isStarted) {
-            participants.addAll(names.stream().map(Car::new).toList());
+        if (isStarted) {
+            throw new IllegalRequestException("Already started!");
         }
+
+        participants.addAll(names.stream().map(Car::new).toList());
     }
 
     @Override
-    public void runRounds(int numberOfRounds) {
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    @Override
+    public void startOneRound() {
         isStarted = true;
-        for (int i = 0; i < numberOfRounds; i++) {
-            output.showRoundStart();
-            allStart();
-            output.endLine();
-        }
-    }
-
-    private void allStart() {
-        for (Participant participant : this.participants) {
+        for (Participant participant : participants) {
             participant.moveForward();
-            output.showDistance(participant.getName(), participant.getDistance());
         }
     }
 
     @Override
-    public void announceWinnerNames() {
+    public List<String> getWinnerNames() {
         List<Participant> winners = new ArrayList<>();
 
         for(Participant participant : this.participants) {
@@ -62,7 +59,6 @@ public class CarRace implements Race {
                 winners.add(participant);
             }
         }
-
-        output.showWinnerNames(winners.stream().map(Participant::getName).toList());
+        return winners.stream().map(Participant::getName).toList();
     }
 }

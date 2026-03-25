@@ -5,7 +5,9 @@ import java.util.List;
 public interface Race {
     public void joinWithNames(List<String> names);
 
-    public void runRounds(int numberOfGames);
+    public List<Participant> getParticipants();
 
-    public void announceWinnerNames();
+    public void startOneRound();
+
+    public List<String> getWinnerNames();
 }
