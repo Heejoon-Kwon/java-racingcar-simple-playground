@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Random;
 
 public class Car implements Participant {
     private final String name;
@@ -18,15 +17,10 @@ public class Car implements Participant {
     }
 
     @Override
-    public boolean moveForward() {
-        Random random = new Random();
-        int randomInt = random.nextInt(10);
-
-        if (randomInt >= 4) {
+    public void moveForward(int luck) {
+        if (luck >= 4) {
             distance += 1;
-            return true;
         }
-        return false;
     }
 
     @Override

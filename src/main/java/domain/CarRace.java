@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class CarRace implements Race {
@@ -25,8 +26,13 @@ public class CarRace implements Race {
     @Override
     public void startOneRound() {
         for (Participant participant : participants) {
-            participant.moveForward();
+            participant.moveForward(generateRandomInt());
         }
+    }
+
+    private int generateRandomInt() {
+        Random random = new Random();
+        return random.nextInt(10);
     }
 
     @Override
