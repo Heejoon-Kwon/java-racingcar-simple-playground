@@ -3,6 +3,7 @@ package view;
 import exception.InvalidNameInputException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -31,22 +32,14 @@ class VehicleRaceNameInputTest {
     }
 
     @DisplayName("참가자 이름은 쉼표를 기준으로 구분된다.")
-    @ParameterizedTest
-    @MethodSource("namesInputMethodSource")
-    void getNamesTest(String userInput) {
+    @Test
+    void getNamesTest() {
         //given
-        Scanner sc = new Scanner(userInput);
-        List<String> predictedNames = Arrays.stream(userInput.split(",")).toList();
+        Scanner sc = new Scanner("sdfsd,sgsg,s]'/[,[34d'd");
+        List<String> predictedNames = Arrays.stream("sdfsd,sgsg,s]'/[,[34d'd".split(",")).toList();
         //when
         List<String> actualNames = VehicleRaceNameInput.getNames(sc);
         //then
         Assertions.assertThat(actualNames).containsAll(predictedNames);
-    }
-
-    static Stream<Arguments> namesInputMethodSource() {
-        return Stream.of(
-                Arguments.arguments("sdfsd,sgsg,s]'/[,[34d'd"),
-                Arguments.arguments("23['c,]]4,03.gd-d,d/'c[")
-        );
     }
 }

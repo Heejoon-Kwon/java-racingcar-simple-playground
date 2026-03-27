@@ -35,4 +35,53 @@ class VehicleRaceTest {
                 Arguments.arguments(List.of("A", "BB", "CCC", "DDDD"))
         );
     }
+
+    @DisplayName("가장 많이 전진한 차량이 우승한다.")
+    @Test
+    void getWinnerNamesSingleWinnerTest() {
+        //given
+        Race race = new VehicleRace();
+
+        //when
+        race.joinWithNames(List.of("Win", "Lose1", "Lose2"));
+        Participant participant1 = race.getParticipants().get(0);
+        Participant participant2 = race.getParticipants().get(1);
+        Participant participant3 = race.getParticipants().get(2);
+
+        participant1.moveForward(9);
+        participant1.moveForward(9);
+        participant2.moveForward(1);
+        participant2.moveForward(9);
+        participant3.moveForward(1);
+        participant3.moveForward(1);
+
+        //then
+        Assertions.assertThat(race.getWinnerNames()).containsOnly("Win");
+    }
+
+    @DisplayName("가장 많이 전진한 차량이 2대이면 공동우승한다.")
+    @Test
+    void getWinnerNamesDoubleWinnersTest() {
+        //given
+        Race race = new VehicleRace();
+
+        //when
+        race.joinWithNames(List.of("Win1", "Win2", "Lose1", "Lose2"));
+        Participant participant1 = race.getParticipants().get(0);
+        Participant participant2 = race.getParticipants().get(1);
+        Participant participant3 = race.getParticipants().get(2);
+        Participant participant4 = race.getParticipants().get(3);
+
+        participant1.moveForward(9);
+        participant1.moveForward(9);
+        participant2.moveForward(9);
+        participant2.moveForward(9);
+        participant3.moveForward(1);
+        participant3.moveForward(9);
+        participant4.moveForward(1);
+        participant4.moveForward(1);
+
+        //then
+        Assertions.assertThat(race.getWinnerNames()).containsOnly("Win1", "Win2");
+    }
 }
