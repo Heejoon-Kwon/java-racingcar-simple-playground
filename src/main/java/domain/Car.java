@@ -2,6 +2,8 @@ package domain;
 
 
 public class Car implements Participant {
+    private static final int FORWARD_CONDITION = 4;
+
     private final String name;
 
     private int distance;
@@ -17,14 +19,16 @@ public class Car implements Participant {
     }
 
     @Override
-    public void moveForward(int luck) {
-        if (luck >= 4) {
-            distance += 1;
-        }
+    public int getDistance() {
+        return this.distance;
     }
 
     @Override
-    public int getDistance() {
-        return this.distance;
+    public boolean moveForward(int luck) {
+        if (luck >= FORWARD_CONDITION) {
+            distance += 1;
+            return true;
+        }
+        return false;
     }
 }

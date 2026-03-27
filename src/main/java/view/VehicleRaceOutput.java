@@ -5,7 +5,7 @@ import domain.Race;
 
 import java.util.List;
 
-public class CarRaceOutput {
+public class VehicleRaceOutput {
     public void showRace(Race race, int numberOfRound) {
         List<Participant> participants = race.getParticipants();
         for (int i = 0; i < numberOfRound; i++) {

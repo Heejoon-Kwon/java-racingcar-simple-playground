@@ -3,47 +3,37 @@ package view;
 import exception.InvalidNameInputException;
 import exception.InvalidNumberInputException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class CarRaceInput {
-    private final Scanner scanner;
-
-    public CarRaceInput(){
-        scanner = new Scanner(System.in);
-    }
-
+public class VehicleRaceInput {
     public List<String> getNamesInput() {
-        List<String> names = CarRaceNameInput.getNames(scanner);
+        Scanner scanner = new Scanner(System.in);
+        List<String> names = VehicleRaceNameInput.getNames(scanner);
 
         try {
-            CarRaceNameInput.validateNames(names);
+            VehicleRaceNameInput.validateNames(names);
         } catch (InvalidNameInputException e) {
             System.out.println(e.getMessage());
             return getNamesInput();
         }
+        scanner.close();
 
-        return  names;
+        return names;
     }
 
     public int getNumberInput() {
         int number;
+        Scanner scanner = new Scanner(System.in);
 
         try {
-            number = CarRaceNumberInput.getNumber(scanner);
+            number = VehicleRaceNumberInput.getNumber(scanner);
         } catch (InvalidNumberInputException e) {
             System.out.println(e.getMessage());
             return getNumberInput();
         }
+        scanner.close();
 
         return number;
-    }
-
-
-
-    public void turnOffScanner(){
-        this.scanner.close();
     }
 }

@@ -7,22 +7,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class CarRaceNameInputTest {
+class VehicleRaceNameInputTest {
 
     @DisplayName("이름이 5자가 아니면 InvalidNameInputException 예외를 던진다")
     @ParameterizedTest
     @MethodSource("invalidNameMethodSource")
     void validateNamesWrongInputTest(List<String> invalidNames) {
-        Assertions.assertThatThrownBy(() -> CarRaceNameInput.validateNames(invalidNames))
+        Assertions.assertThatThrownBy(() -> VehicleRaceNameInput.validateNames(invalidNames))
                 .isInstanceOf(InvalidNameInputException.class).hasMessage("Name should have 5 or less characters.");
     }
 
@@ -42,7 +38,7 @@ class CarRaceNameInputTest {
         Scanner sc = new Scanner(userInput);
         List<String> predictedNames = Arrays.stream(userInput.split(",")).toList();
         //when
-        List<String> actualNames = CarRaceNameInput.getNames(sc);
+        List<String> actualNames = VehicleRaceNameInput.getNames(sc);
         //then
         Assertions.assertThat(actualNames).containsAll(predictedNames);
     }
