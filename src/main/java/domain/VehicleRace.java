@@ -6,12 +6,12 @@ import java.util.Random;
 
 
 public class VehicleRace implements Race {
-    private static final int RANDOM_INT_UPPER_BOUND = 10;
-
     private final List<Participant> participants;
+    private final NumberGenerator generator;
 
-    public VehicleRace() {
+    public VehicleRace(NumberGenerator generator) {
         participants = new ArrayList<>();
+        this.generator = generator;
     }
 
     @Override
@@ -27,14 +27,8 @@ public class VehicleRace implements Race {
     @Override
     public void startOneRound() {
         for (Participant participant : participants) {
-            participant.moveForward(generateRandomInt());
+            participant.moveForward(generator.generate());
         }
-    }
-
-    private int generateRandomInt() {
-        Random random = new Random();
-
-        return random.nextInt(RANDOM_INT_UPPER_BOUND);
     }
 
     @Override

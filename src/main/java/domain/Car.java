@@ -24,11 +24,9 @@ public class Car implements Participant {
     }
 
     @Override
-    public boolean moveForward(int luck) {
+    public void moveForward(int luck) {
         if (luck >= FORWARD_CONDITION) {
             distance += 1;
-            return true;
         }
-        return false;
     }
 }

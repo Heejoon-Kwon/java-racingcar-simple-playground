@@ -20,7 +20,8 @@ class VehicleRaceTest {
     @MethodSource("stringListOfNamesMethodSource")
     void joinWithNamesTest(List<String> names) {
         //given
-        Race race = new VehicleRace();
+        NumberGenerator generator = new RandomNumberGenerator();
+        Race race = new VehicleRace(generator);
 
         //when
         race.joinWithNames(names);
@@ -36,11 +37,42 @@ class VehicleRaceTest {
         );
     }
 
+    @DisplayName("라운드 진행 시 모든 차량의 luck이 9가 나오면 모두 전진한다.")
+    @Test
+    void startOneLuckyRoundTest() {
+        //given
+        NumberGenerator luckyGenerator = () -> 9;
+        Race race = new VehicleRace(luckyGenerator);
+        race.joinWithNames(List.of("A", "BB", "CCC"));
+
+        //when
+        race.startOneRound();
+
+        //then
+        Assertions.assertThat(race.getParticipants().stream().map(Participant::getDistance).toList()).containsOnly(1);
+    }
+
+    @DisplayName("라운드 진행 시 모든 차량의 luck이 0이 나오면 모두 움직이지 않는다.")
+    @Test
+    void startOneUnluckyRoundTest() {
+        //given
+        NumberGenerator luckyGenerator = () -> 0;
+        Race race = new VehicleRace(luckyGenerator);
+        race.joinWithNames(List.of("A", "BB", "CCC"));
+
+        //when
+        race.startOneRound();
+
+        //then
+        Assertions.assertThat(race.getParticipants().stream().map(Participant::getDistance).toList()).containsOnly(0);
+    }
+
     @DisplayName("가장 많이 전진한 차량이 우승한다.")
     @Test
     void getWinnerNamesSingleWinnerTest() {
         //given
-        Race race = new VehicleRace();
+        NumberGenerator generator = new RandomNumberGenerator();
+        Race race = new VehicleRace(generator);
 
         //when
         race.joinWithNames(List.of("Win", "Lose1", "Lose2"));
@@ -63,7 +95,8 @@ class VehicleRaceTest {
     @Test
     void getWinnerNamesDoubleWinnersTest() {
         //given
-        Race race = new VehicleRace();
+        NumberGenerator generator = new RandomNumberGenerator();
+        Race race = new VehicleRace(generator);
 
         //when
         race.joinWithNames(List.of("Win1", "Win2", "Lose1", "Lose2"));

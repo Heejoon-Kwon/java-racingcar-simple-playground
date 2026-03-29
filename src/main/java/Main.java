@@ -1,3 +1,5 @@
+import domain.NumberGenerator;
+import domain.RandomNumberGenerator;
 import view.VehicleRaceInput;
 import domain.VehicleRace;
 import domain.Race;
@@ -7,7 +9,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Race race = new VehicleRace();
+        NumberGenerator generator = new RandomNumberGenerator();
+        Race race = new VehicleRace(generator);
         VehicleRaceInput vehicleRaceInput = new VehicleRaceInput();
         VehicleRaceOutput vehicleRaceOutput = new VehicleRaceOutput();
 
